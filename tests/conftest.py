@@ -7,11 +7,11 @@ from src.vacancy import Vacancy
 
 @pytest.fixture
 def python_developer() -> Vacancy:
-    return Vacancy("Python Developer", "<https://hh.ru/vacancy/123456>", "100 000-150 000 руб.", "Требования: опыт работы от 3 лет... Python")
+    return Vacancy("Python Developer", "<https://hh.ru/vacancy/123456>", 150000, 100000, "Требования: опыт работы от 3 лет... Python")
 
 @pytest.fixture
 def java_developer() -> Vacancy:
-    return Vacancy("Java Developer", "<https://hh.ru/vacancy/123456>", "80 000-150 000 руб.", "Требования: опыт работы от 1 года... Java")
+    return Vacancy("Java Developer", "<https://hh.ru/vacancy/123456>", 150000, 80000, "Требования: опыт работы от 1 года... Java")
 
 @pytest.fixture
 def head_hunter_api() -> HeadHunterAPI:

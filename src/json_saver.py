@@ -8,7 +8,7 @@ class JSONSaver(FileWorker):
     Класс для сохранения данных в json файл и работы с ними
     """
 
-    def __init__(self, name_file):
+    def __init__(self, name_file="vacancy.json"):
         self.__name_file = name_file
 
     def add_vacancy(self, vacancy):
