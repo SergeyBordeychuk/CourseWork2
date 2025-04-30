@@ -8,10 +8,9 @@ class Vacancy():
     salary_to:int
     description:str
 
-
-    def __init__(self, name='', url='', salary_from=0, salary_to=0, description=''):
+    def __init__(self, name='', url='', salary=None, description=''):
         self.url = url
-        self.__validation_salary(salary_from, salary_to)
+        self.__validation_salary(salary)
         self.name = name
         self.description = description
 
@@ -30,10 +29,10 @@ class Vacancy():
                 filter_list.append(vacancies)
         return filter_list
 
-    def __validation_salary(self, salary_from, salary_to):
-        if salary_to and salary_from:
-            self.salary_from = salary_from
-            self.salary_to = salary_to
+    def __validation_salary(self, salary):
+        if salary:
+            self.salary_from = salary["from"] if salary["from"] else 0
+            self.salary_to = salary["to"] if salary["to"] else 0
         else:
             self.salary_from = 0
             self.salary_to = 0

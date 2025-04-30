@@ -19,8 +19,8 @@ def user_interaction():
         if work == 1:
             search_query = input("Введите поисковый запрос: ")
             hh_vacancies_json = hh_api.get_vacancies(search_query)
-            for i in range(len(hh_vacancies_json)):
-                vacancy = Vacancy(hh_vacancies_json[i]["name"], hh_vacancies_json[i]["url"], hh_vacancies_json[i]["salary_from"], hh_vacancies_json[i]["salary_to"], hh_vacancies_json[i]["description"])
+            for vac in hh_vacancies_json:
+                vacancy = Vacancy(vac["name"], vac["url"], vac["salary"], vac["snippet"]["requirement"])
                 vacancies_list.append(vacancy)
             ans = input('Хотите записать данные в файл? Y/N: ')
             if ans.upper() == 'Y':
@@ -35,8 +35,7 @@ def user_interaction():
                     deta["description"] = vacancy.description
                     vacancies_list_json.append(deta)
                 json_saver = JSONSaver(file_name)
-                for i in range(len(vacancies_list_json)):
-                    json_saver.add_vacancy(vacancies_list_json[i])
+                json_saver.add_vacancy(vacancies_list_json)
             ans = input('Хотите остановить программу? Y/N: ')
             if ans.upper() == 'Y':
                 break
@@ -44,7 +43,7 @@ def user_interaction():
             if vacancies_list:
                 top_n = int(input("Введите количество вакансий для вывода в топ N: "))
                 top_vacancies = get_top_vacancies(vacancies_list, top_n)
-                ans = input('Хотите записать данные в файл? Y/N: ')
+                ans = input('Хотите записать данные в файл?(При отказе данные выведутся в терминал) Y/N: ')
                 if ans.upper() == 'Y':
                     file_name = input('Введите название файла для добавления в него вакансий: ') + '.json'
                     vacancies_list_json = []
@@ -57,8 +56,9 @@ def user_interaction():
                         deta["description"] = vacancy.description
                         vacancies_list_json.append(deta)
                     json_saver = JSONSaver(file_name)
-                    for i in range(len(vacancies_list_json)):
-                        json_saver.add_vacancy(vacancies_list_json[i])
+                    json_saver.add_vacancy(vacancies_list_json)
+                else:
+                    print(top_vacancies)
                 if ans.upper() == 'Y':
                     break
             else:
@@ -67,7 +67,7 @@ def user_interaction():
             if vacancies_list:
                 filter_word = input("Введите ключевое слово для фильтрации вакансий: ")
                 filtered_vacancies = filter_vacancies(vacancies_list, filter_word)
-                ans = input('Хотите записать данные в файл? Y/N: ')
+                ans = input('Хотите записать данные в файл?(При отказе данные выведутся в терминал) Y/N: ')
                 if ans.upper() == 'Y':
                     file_name = input('Введите название файла для добавления в него вакансий: ') + '.json'
                     vacancies_list_json = []
@@ -80,8 +80,9 @@ def user_interaction():
                         deta["description"] = vacancy.description
                         vacancies_list_json.append(deta)
                     json_saver = JSONSaver(file_name)
-                    for i in range(len(vacancies_list_json)):
-                        json_saver.add_vacancy(vacancies_list_json[i])
+                    json_saver.add_vacancy(vacancies_list_json)
+                else:
+                    print(filtered_vacancies)
                 ans = input('Хотите остановить программу? Y/N: ')
                 if ans.upper() == 'Y':
                     break

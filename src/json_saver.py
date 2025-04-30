@@ -15,8 +15,8 @@ class JSONSaver(FileWorker):
         """
         Метод для добавления вакансии в файл
         """
-        with open(self.__name_file, 'a') as file:
-            json.dump(vacancy, file)
+        with open(self.__name_file, 'w', encoding="utf-8") as file:
+            json.dump(vacancy, file, ensure_ascii=False, indent=4)
 
     def delete_vacancy(self, vacancy):
         """
